@@ -6,7 +6,7 @@
 
 \NeedsTeXFormat{LaTeX2e}
 \ProvidesClass{NMBU}
-  [2024/08/14 v0.2.0 NMBU LaTeX class for thesis writing]
+  [2024/09/18 v0.2.1 NMBU LaTeX class for thesis writing]
 
 %\documentclass[final,...]{NMBU} % use "final" when you are done with your thesis (with XeLaTeX)! 
 
@@ -36,7 +36,34 @@
 % \engtitle{} % Only if you write a thesis in a Scandinavian language
 
 
-\LoadClassWithOptions{article}
+\ProvidesClass{superclass}
+
+\RequirePackage{xkeyval}% better option processing - there are many other possibilities as you probably know so just adapt as needed
+
+\def\myclasstype{article}% make sure a default is defined
+\newif\ifArticle
+\Articletrue
+\newif\ifBook
+\Bookfalse
+
+\DeclareOptionX{article}{%
+    \gdef\myclasstype{article}   
+}
+
+\DeclareOptionX{book}{%
+    \gdef\myclasstype{book}
+}
+
+%:pass unrecognised options off to \myclasstype
+\DeclareOptionX*{%
+    \PassOptionsToClass{\CurrentOption}{\myclasstype}}
+%:process options
+\ProcessOptionsX
+%:load \myclasstype
+\LoadClass{\myclasstype}% add options if desired
+
+
+%\LoadClassWithOptions{article}
 
 \RequirePackage{amsmath,amssymb,amsfonts,mathtools}
 \RequirePackage{graphicx}
@@ -426,21 +453,79 @@ Your name\fi
 \fi
 }
 
-\renewcommand{\abstract}[1]{\def\@abstract{#1}}
-\newif\ifabstract \abstractfalse \def\@abstract{} 
-\newcommand{\abstractcheck}{%
-\ifx\@abstract\empty%
-\abstractfalse%
-\@latex@warning@no@line{No \noexpand\abstract given. At the start of your document, you must include an abstract with \noexpand\abstract{}.}\else\abstracttrue\fi
-}
-\newcommand{\printabstract}{%
-\abstractcheck\ifabstract{%
-\newpage
-\begin{center}\noindent\normalfont\LARGE\textbf{Abstract}\end{center}
-\begin{quotation} \sloppy\@abstract \end{quotation}
-}\else%
-\fi
-}
+
+\@ifclassloaded{article}%
+  {
+    \renewcommand{\abstract}[1]{\def\@abstract{#1}}
+    \newif\ifabstract \abstractfalse \def\@abstract{} 
+    \newcommand{\abstractcheck}{%
+    \ifx\@abstract\empty%
+    \abstractfalse%
+    \@latex@warning@no@line{No \noexpand\abstract given. At the start of your document, you must include an abstract with \noexpand\abstract{}.}\else\abstracttrue\fi
+    }
+    \newcommand{\printabstract}{%
+    \abstractcheck\ifabstract{%
+    \newpage
+    \begin{center}\noindent\normalfont\LARGE\textbf{Abstract}\end{center}
+    \begin{quotation} \sloppy\@abstract \end{quotation}
+    }\else%
+    \fi
+    }
+  }%
+  {
+    \newcommand{\abstract}[1]{\def\@abstract{#1}}
+    \newif\ifabstract \abstractfalse \def\@abstract{} 
+    \newcommand{\abstractcheck}{%
+    \ifx\@abstract\empty%
+    \abstractfalse%
+    \@latex@warning@no@line{No \noexpand\abstract given. At the start of your document, you must include an abstract with \noexpand\abstract{}.}\else\abstracttrue\fi
+    }
+    \newcommand{\printabstract}{%
+    \abstractcheck\ifabstract{%
+    \newpage
+    \begin{center}\noindent\normalfont\LARGE\textbf{Abstract}\end{center}
+    \begin{quotation} \sloppy\@abstract \end{quotation}
+    }\else%
+    \fi
+    }
+  }%
+
+% \ifArticle
+% \renewcommand{\abstract}[1]{\def\@abstract{#1}}
+% \newif\ifabstract \abstractfalse \def\@abstract{} 
+% \newcommand{\abstractcheck}{%
+% \ifx\@abstract\empty%
+% \abstractfalse%
+% \@latex@warning@no@line{No \noexpand\abstract given. At the start of your document, you must include an abstract with \noexpand\abstract{}.}\else\abstracttrue\fi
+% }
+% \newcommand{\printabstract}{%
+% \abstractcheck\ifabstract{%
+% \newpage
+% \begin{center}\noindent\normalfont\LARGE\textbf{Abstract}\end{center}
+% \begin{quotation} \sloppy\@abstract \end{quotation}
+% }\else%
+% \fi
+% }
+% \fi
+
+
+% \ifBook
+% \newcommand{\abstract}[1]{\def\@abstract{#1}}
+% \newif\ifabstract \abstractfalse \def\@abstract{} 
+% \newcommand{\abstractcheck}{%
+% \ifx\@abstract\empty%
+% \abstractfalse%
+% \@latex@warning@no@line{No \noexpand\abstract given. At the start of your document, you must include an abstract with \noexpand\abstract{}.}\else\abstracttrue\fi
+% }
+% \newcommand{\printabstract}{%
+% \abstractcheck\ifabstract{%
+% \newpage
+% \begin{center}\noindent\normalfont\LARGE\textbf{Abstract}\end{center}
+% \begin{quotation} \sloppy\@abstract \end{quotation}
+% }\else%
+% \fi
+% }
+% \fi
 
 \newcommand{\sammendrag}[1]{\def\@sammendrag{#1}}
 \newif\ifsammendrag \sammendragfalse \def\@sammendrag{} 

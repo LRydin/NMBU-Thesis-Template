@@ -1,6 +1,8 @@
 \documentclass[a4paper,11pt,masters,en,listoffigures,listoftables]{NMBU}
 % Limitation: at this stage, the template is designed only for a4 size paper.
 
+% If you'd like to use chapters instead of sections, add 'book' to the options, as \documentclass[book,...]{NMBU}. Recall that you now have to use \chapter{} and then \section{}, \subsection{}, ... 
+
 % \usepackage[nohyperlinks]{acronym} % If you need a List of Acronyms, consider using this package
 
 %\documentclass[final,...]{NMBU} % use "final" when you are done with your thesis (with XeLaTeX)! 
@@ -51,14 +53,17 @@
 \startthesis % This command will separate the Roman-numbered pages above and the Arabic-numbered pages below as well as create the table of contents, list of figures, and list of tables.
 
 \section{Introduction}
+% text
 
 \subsection{Motivation}
-\subsection{Research question}
+% text
+
+\subsubsection{add description}
 
 \clearpage % separate each section with a \clearpage
 \section{Theory}
 
-We sometimes have to cite two scientific publications or two reports, or just two citations together in general. For that, you can use \verb|\cite{citation1, citation2}|, i.e., separate the citations with a comma, like~\cite{Beck2000application, Beck2005timeseries}.
+We sometimes have to cite two scientific publications or two reports, or just two citations together in general. For that, you can use \verb|\cite{citation1, citation2}|, i.e., separate the citations with a comma, like~\cite{Beck2000application, Beck2005timeseries, Milano2018}.
 
 When you are closely following a book to explain something, which is often the case in a theory section, you can write at the start of the section you are about to introduce: ``This section follows closely the reference book by Sumiyoshi Abe and Yuko Okamoto, \emph{Nonextensive Statistical Mechanics and Its Applications}~\cite{Abe2001nonextensive}.''
 

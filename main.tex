@@ -36,9 +36,7 @@
 % You should also use the "\abstract" and "\sammendrag" to produce those. If you are writing in a Scandinavian language, the sammendrag will appear first.
 %\abstract{Write your abstract here}
 %\sammendrag{Write your sammendrag here}
-%\acknowledgements{} You can add acknowledgements here. In Scandinavian languages, use "\foreword{}" (or if in English you prefer Foreword to Acknowledgements)
-
-\newcommand{\cl}[1]{\textcolor{nmbugreen}{#1}}
+%\acknowledgements{} You can add acknowledgements here. In Scandinavian languages, use "\foreword{}" (or if in English you prefer Foreword to Acknowledgements). The foreword comes before the abstract.
 
 \begin{document}
 
@@ -72,28 +70,6 @@ Articles and proceedings are practically the same in science, but in your biblio
 \section{Methodology}
 
 In the methodology, you might include mentions of various python (or other programming languages) packages. One example is \texttt{numpy}~\cite{NumPy}  (you can use \verb|\texttt{numpy}| to get a monospaced/typewriter font). \texttt{matplotlib}~\cite{Matplotlib} or \texttt{SciPy}~\cite{SciPy} also have articles you can cite directly.
-
-\clearpage
-
-\section*{Todos for a perfect thesis}
-A Master's Thesis or a PhD thesis are documents that are published for posterity. This means that it is important they are well structured, well organised, and devoid of typos and trailing comments.
-
-\subsection*{Figures and Tables}
-When referring to tables and figures, do not write ``in the figure below'' or ``in the table above'', always refer to a figure or table using a \verb|\ref{}|. A few pointers:
-\begin{itemize}
-    \item Captions (\verb|\caption{...}|) for tables go \textit{above} the table; Captions for figures go \textit{below} the figures;
-    \item The label of a figure/table 
-    \item For each figure/table, the \verb|\label{...}| most be attached to the caption: \\ \verb|\caption{...}\label{...}|. \LaTeX~gets confused otherwise.
-    \begin{itemize}
-        \item Keep things organised: for figures/tables, use \verb|\label{fig:}|/\verb|\label{tab:}| and after the colon \verb|:| be explicit, so it is easy for you to remember which label refers to each figure/table.
-    \end{itemize}
-    \item For each caption you should write what is known as the \textit{short caption}:
-    \begin{quote}
-        \verb|\caption[|\cl{\texttt{short caption}}\verb|]{| \texttt{This is my long caption for my figure,}\\
-        \verb|with relevant information}|
-    \end{quote}
-    This will create short captions that will appear in your List of Figures and List of Tables at the start of your thesis.
-\end{itemize}
 
 
 

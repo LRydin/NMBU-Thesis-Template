@@ -6,13 +6,13 @@
 
 \NeedsTeXFormat{LaTeX2e}
 \ProvidesClass{NMBU}
-  [2024/07/15 v0.1.3 NMBU LaTeX class for thesis writing]
+  [2024/08/14 v0.2.0 NMBU LaTeX class for thesis writing]
 
 %\documentclass[final,...]{NMBU} % use "final" when you are done with your thesis (with XeLaTeX)! 
 
 % This documentclass also comes with a "main.tex" file to help you understand the use of the different commands and how to best write an academic thesis, as well as an exemplary bibliography file with a few explanations therein.
 
-% The NMBU class is designed to help you write your thesis, while printing the cover and back page automatically, and managing the metadata of your thesis. Make sure to include the information below to generate your title. You can set the language you are writing in with "en" for english, "bm" for bokmål, or "nn" for nynorsk. Currently there are no implementation for Swedish or Danish, so talk with your supervisor(s) if you intend to write in these languages.
+% The NMBU class is designed to help you write your thesis, while printing the cover and back page automatically, and managing the metadata of your thesis. Make sure to include the information below to generate your title. You can set the language you are writing in with "en" for english, "bm" for bokmål, or "nn" for nynorsk. Currently, there are no implementations for Swedish or Danish, so talk with your supervisor(s) if you intend to write in these languages.
 
 % A table of contents is automatically included. If you have more than one figure, you need a list of figures by adding "listoffigures" to the documentclass parameters. If you have more than one table, you need a list of tables by adding "listoftables" to the documentclass parameters.
 
@@ -75,8 +75,6 @@
         \enlogotext
     }%
 }
-
-\definecolor{nmbugreen}{RGB}{0,111,93}
 
 \DeclareOption{green}{%
     \definecolor{db}{RGB}{0,133,113}
@@ -165,8 +163,15 @@
 \newif\ifAcronyms
 \DeclareOption{acronyms}{\Acronymstrue}
 
+\newif\ifForewordfirst
+\DeclareOption{forewordfirst}{\Forewordfirsttrue}
+
 \ProcessOptions
 
+\ifEnglish
+\else
+\RequirePackage[norsk]{babel}%
+\fi
 
 \ifNamedauthors
   \RequirePackage[style=apa, giveninits=true, hyperref, doi=true, isbn=true, maxbibnames=19, date=year]{biblatex}
@@ -415,7 +420,7 @@ Your name\fi
   /Author (\@author)
   /Producer (\@author, Supervision: \@supervisor)
   /Creator (\@author)
-  /Subject (Master's Thesis \@thesisyear, \@credits ECTS)
+  /Subject (Master's Thesis \@thesisyear (\@credits ECTS))
   /Keywords (Norwegian University of Life Science, \@faculty, \@studyprogramme)
   }
 \fi
@@ -537,6 +542,26 @@ Your name\fi
 \fi
 }
 
+\newcommand{\orderofabstractforewordfirsttrue}{
+\ifEnglish
+  \printabstract
+  \clearpage
+  \thispagestyle{plain}
+  \printsammendrag
+  \clearpage
+  \thispagestyle{plain}
+  \engtitle{~}
+\else
+  \printsammendrag
+  \clearpage
+  \thispagestyle{plain}
+  \printabstract
+  \clearpage
+  \thispagestyle{plain}
+\fi
+}
+
+
 \AddToHook{begindocument/end}{%
 \thispagestyle{empty}
 \frontpage
@@ -547,10 +572,9 @@ Your name\fi
 \thispagestyle{plain}
 \addtocounter{page}{-1}%
 \pagenumbering{roman}
+\printforeword
 \orderofabstract
 \printacknowledgements
-\clearpage
-\printforeword
 \clearpage
 \thispagestyle{plain}
 {

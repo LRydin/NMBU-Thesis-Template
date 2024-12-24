@@ -1,12 +1,13 @@
 % NMBU Thesis Class
 % 
 % (c) Leonardo Rydin Gorjão 2024
+% Special thanks to Hallvard Lavik for the help with v0.3.0
 %
 %% This class can be redistributed and/or modified freely.
 
 \NeedsTeXFormat{LaTeX2e}
 \ProvidesClass{NMBU}
-  [2024/09/18 v0.3.0 NMBU LaTeX class for thesis writing]
+  [2024/12/24 v0.3.0 NMBU LaTeX class for thesis writing]
 
 %\documentclass[final,...]{NMBU} % use "final" when you are done with your thesis (with XeLaTeX)! 
 

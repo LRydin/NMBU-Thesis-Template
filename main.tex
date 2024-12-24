@@ -1,4 +1,4 @@
-\documentclass[a4paper,11pt,masters,en,listoffigures,listoftables]{NMBU}
+\documentclass[final,a4paper,masters,nn,listoffigures,listoftables]{NMBU}
 % Limitation: at this stage, the template is designed only for a4 size paper.
 
 % If you'd like to use chapters instead of sections, add 'book' to the options, as \documentclass[book,...]{NMBU}. Recall that you now have to use \chapter{} and then \section{}, \subsection{}, ... 
@@ -6,6 +6,9 @@
 % \usepackage[nohyperlinks]{acronym} % If you need a List of Acronyms, consider using this package
 
 %\documentclass[final,...]{NMBU} % use "final" when you are done with your thesis (with XeLaTeX)! 
+
+% \usepackage[font=small]{caption} % if you prefer smaller captions
+% \captionsetup{width=0.9\linewidth} 
 
 % The NMBU style package is designed to help you write the cover and back page automatically. Make sure to include the information below to generate your title. You can set the language you are writing in with "en" for english, "bm" for bokmål, or "nn" for nynorsk.
 
@@ -32,8 +35,8 @@
 %Environmental Physics and Renewable Energy
 %Data Science
 }
-\supervisor{} % Include the name of the supervisor or supervisors
-% \engtitle{} % Only if you write a thesis in a Scandinavian language
+\supervisor{} % Include the name of the supervisor or supervisors (this is added to the metadata of the PDF)
+%\engtitle{} % Only if you write a thesis in a Scandinavian language
 
 % You should also use the "\abstract" and "\sammendrag" to produce those. If you are writing in a Scandinavian language, the sammendrag will appear first.
 %\abstract{Write your abstract here}
@@ -52,13 +55,9 @@
 
 \startthesis % This command will separate the Roman-numbered pages above and the Arabic-numbered pages below as well as create the table of contents, list of figures, and list of tables.
 
+
 \section{Introduction}
-% text
 
-\subsection{Motivation}
-% text
-
-\subsubsection{add description}
 
 \clearpage % separate each section with a \clearpage
 \section{Theory}
@@ -74,18 +73,14 @@ Articles and proceedings are practically the same in science, but in your biblio
 \clearpage
 \section{Methodology}
 
-In the methodology, you might include mentions of various python (or other programming languages) packages. One example is \texttt{numpy}~\cite{NumPy}  (you can use \verb|\texttt{numpy}| to get a monospaced/typewriter font). \texttt{matplotlib}~\cite{Matplotlib} or \texttt{SciPy}~\cite{SciPy} also have articles you can cite directly.
-
+In the methodology, you might include mentions of various \texttt{python} (or other programming languages) packages. One example is \texttt{numpy}~\cite{NumPy}  (you can use \verb|\texttt{numpy}| to get a monospaced/typewriter font). \texttt{matplotlib}~\cite{Matplotlib} or \texttt{SciPy}~\cite{SciPy} also have articles you can cite directly.
 
 
 % Note that the appendices should come after the bibliography, not before.
 \clearpage
-\references % this command prints out your bibliography
+\references % This command prints out your bibliography
 
 \clearpage
 \appendices % This command is needed to start the appendix section and number the figures and tables accordingly. You should still use "\section"s to make your appendices.
-
-\section{Appendix}
-
 
 \end{document}

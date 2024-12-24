@@ -1,5 +1,11 @@
 # NMBU LaTeX Thesis Template
 
+<picture>
+  <img src="covers/en_frontpage.png" width=200px alt="English frontpage">
+  <img src="covers/nn_frontpage.png" width=200px alt="Nynorsk frontpage">
+  <img src="covers/bm_frontpage.png" width=200px alt="Bokmål frontpage">
+</picture>
+
 Repository for the LaTeX Master's and PhD's templates following NMBU's templates. The easiest way to obtain these is via [Overleaf's Gallery](https://www.overleaf.com/latex/templates/nmbu-thesis-template/zhnnqhptjkhs).
 
 Note that the PhD template is not yet ready, as it requires an a5 size page and the template is optimised for a4 size paper.

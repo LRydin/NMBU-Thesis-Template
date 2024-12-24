@@ -6,7 +6,7 @@
 
 \NeedsTeXFormat{LaTeX2e}
 \ProvidesClass{NMBU}
-  [2024/06/17 v0.1.2 NMBU LaTeX class for thesis writing]
+  [2024/07/15 v0.1.3 NMBU LaTeX class for thesis writing]
 
 %\documentclass[final,...]{NMBU} % use "final" when you are done with your thesis (with XeLaTeX)! 
 
@@ -415,7 +415,7 @@ Your name\fi
   /Author (\@author)
   /Producer (\@author, Supervision: \@supervisor)
   /Creator (\@author)
-  /Subject (Master's Thesis \@thesisyear~(\@credits ECTS))
+  /Subject (Master's Thesis \@thesisyear, \@credits ECTS)
   /Keywords (Norwegian University of Life Science, \@faculty, \@studyprogramme)
   }
 \fi

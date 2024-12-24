@@ -6,7 +6,7 @@
 
 \NeedsTeXFormat{LaTeX2e}
 \ProvidesClass{NMBU}
-  [2024/09/18 v0.2.1 NMBU LaTeX class for thesis writing]
+  [2024/09/18 v0.3.0 NMBU LaTeX class for thesis writing]
 
 %\documentclass[final,...]{NMBU} % use "final" when you are done with your thesis (with XeLaTeX)! 
 
@@ -38,7 +38,7 @@
 
 \ProvidesClass{superclass}
 
-\RequirePackage{xkeyval}% better option processing - there are many other possibilities as you probably know so just adapt as needed
+\RequirePackage{xkeyval} % better option processing - there are many other possibilities as you probably know so just adapt as needed
 
 \def\myclasstype{article}% make sure a default is defined
 \newif\ifArticle
@@ -54,30 +54,35 @@
     \gdef\myclasstype{book}
 }
 
-%:pass unrecognised options off to \myclasstype
+% pass unrecognised options off to \myclasstype
 \DeclareOptionX*{%
     \PassOptionsToClass{\CurrentOption}{\myclasstype}}
-%:process options
+% process options
 \ProcessOptionsX
-%:load \myclasstype
-\LoadClass{\myclasstype}% add options if desired
+% load \myclasstype
+\LoadClass[11pt]{\myclasstype}% add options if desired
 
+\ExecuteOptions{masters,en,a4paper,11pt,listoffigures,listoftables}
 
-%\LoadClassWithOptions{article}
+%%% Required packages
 
-\RequirePackage{amsmath,amssymb,amsfonts,mathtools}
-\RequirePackage{graphicx}
-\RequirePackage[table,dvipsnames,hyperref]{xcolor}
+\RequirePackage{amsmath,amssymb,amsfonts,mathtools} % Maths
+\RequirePackage{graphicx} % Figures
+\RequirePackage[table,dvipsnames]{xcolor} 
 \RequirePackage[colorlinks=true,linkcolor=blue,urlcolor=blue,citecolor=blue,breaklinks=true]{hyperref}
 
-\RequirePackage{tikz}
-\usetikzlibrary{calc}
-\tikzset{font={\fontsize{10pt}{12}\selectfont}}
-
+% Page margins, frenchspacing, and linespread
 \RequirePackage{geometry}
 \geometry{a4paper,left=3.5cm, right=3.5cm, top=3.5cm, bottom=3cm}
 \frenchspacing
 \linespread{1.15}
+
+% tikz packages for front and backpage
+\RequirePackage{tikz}
+\usetikzlibrary{calc}
+\tikzset{font={\fontsize{10pt}{12}\selectfont}}
+
+%%% Options for the thesis
 
 \DeclareOption{bm}{%
     \newcommand{\MT}{Masteroppgave}%
@@ -104,19 +109,20 @@
 }
 
 \DeclareOption{green}{%
-    \definecolor{db}{RGB}{0,133,113}
-    \definecolor{lb}{RGB}{91,190,175}
+    \definecolor{background}{RGB}{0,133,113}
+    \definecolor{contrast}{RGB}{91,190,175}
 }
 
 \DeclareOption{masters}{%
-    \definecolor{db}{RGB}{0,181,222}
-    \definecolor{lb}{RGB}{18,193,227}
+    \definecolor{background}{RGB}{0,112,93}
+    \definecolor{contrast}{RGB}{48,134,121}
 }
 
 \DeclareOption{phd}{%
-    \definecolor{db}{RGB}{0,181,222}
-    \definecolor{lb}{RGB}{18,193,227}
+    \definecolor{background}{RGB}{0,181,222}
+    \definecolor{contrast}{RGB}{18,193,227}
 }
+
 
 \DeclareOption{a4paper}{%
     % defining the new dimensions
@@ -136,13 +142,13 @@
     \tikzset{ymargin/.code={\setlength{\ymargin}{#1}}}
     % setting the default values
     
-    \tikzset{greek=1.85cm}
+    \tikzset{greek=1.84cm}
     %\tikzset{greek=\dimexpr \pgfpagewidth}
     \tikzset{greekie=\greek*2/3}
-    \tikzset{greekoffsetx=1.1cm}
-    \tikzset{greekoffsety=0.3cm}
+    \tikzset{greekoffsetx=1.3cm}
+    \tikzset{greekoffsety=0.15cm}
     \tikzset{xmargin=5.35cm}
-    \tikzset{ymargin=7.1cm}
+    \tikzset{ymargin=6.95cm}
 }
 
 \DeclareOption{a5paper}{%
@@ -163,7 +169,7 @@
     \tikzset{ymargin/.code={\setlength{\ymargin}{#1}}}
     % setting the default values
     
-    \tikzset{greek=1.85cm * 70/99}
+    \tikzset{greek=1.84cm * 70/99}
     %\tikzset{greek=\dimexpr \pgfpagewidth}
     \tikzset{greekie=\greek * 2/3}
     \tikzset{greekoffsetx=1.1cm * 70/99}
@@ -313,8 +319,6 @@
 \fi
 
 \newcommand{\references}{\sloppy{\setlength\bibitemsep{0pt}\printbibliography[heading=bibintoc]}}
-
-\ExecuteOptions{masters,en,a4paper,11pt,listoffigures,listoftables}
 
 \renewcommand{\title}[1]{\def\@title{#1}}
 \newif\iftitle \titlefalse \def\@title{} 
@@ -595,12 +599,15 @@ Your name\fi
 
 \newcommand{\appendices}{
 \appendix%
+\ifBook
+\renewcommand\thetable{\thechapter.\arabic{table}}%
+\renewcommand\thefigure{\thechapter.\arabic{figure}}%
+\else
 \renewcommand\thetable{\thesection.\arabic{table}}%
-%\setcounter{table}{0}%
 \counterwithin{table}{section}
 \renewcommand\thefigure{\thesection.\arabic{figure}}%   
-%\setcounter{figure}{0}%
 \counterwithin{figure}{section}
+\fi
 }
 
 \newcommand{\startthesis}{
@@ -689,16 +696,16 @@ Your name\fi
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \newcommand{\covertext}{%
-\node[below right, align=left] at ($(current page.south west)+(2.38cm,13.5cm)$) 
-{{\fontsize{20pt}{20pt}\arial\parbox[t]{12cm}{\raggedright\linespread{1.15}\selectfont\textbf{\printtitle}\\[0.8em]{\Large{\linespread{0.5}\selectfont\printengtitle}}}}};
-\node[below right, align=left] at ($(current page.south west)+(2.38cm,16.25cm)$) 
-{\fontsize{11pt}{11pt}\arial\textbf{\printthesisyear}};
-\node[below right, align=left] at ($(current page.south west)+(6.65cm,16.25cm)$) 
-{\fontsize{11pt}{11pt}\arial\textbf{\printcredits}};
-\node[below right, align=left] at ($(current page.south west)+(2.38cm,15.71cm)$) 
-{\fontsize{10pt}{10pt}\arial\printfaculty};
-{\fontsize{11pt}{11pt}\arial\textbf{\printcredits}};
-\node[below right, align=left] at ($(current page.south west)+(2.38cm,3cm)$) 
+\node[below right, align=left] at ($(current page.south west)+(2.38cm,14.9cm)$) 
+{{\fontsize{20pt}{20pt}\arial\parbox[t]{12cm}{\raggedright\linespread{1.15}\selectfont\textbf{\printtitle}\\[0.66em]{\Large{\linespread{0.5}\selectfont\printengtitle}}}}};
+\node[below right, align=left] at ($(current page.south west)+(2.38cm,18.0cm)$) 
+{\fontsize{12pt}{12pt}\arial\textbf{\printthesisyear}};
+\node[below right, align=left] at ($(current page.south west)+(7.4cm,18.0cm)$) 
+{\fontsize{12pt}{12pt}\arial\textbf{\printcredits}};
+\node[below right, align=left] at ($(current page.south west)+(2.38cm,17.46cm)$) 
+{\fontsize{12pt}{12pt}\arial\printfaculty};
+%{\fontsize{11pt}{11pt}\arial\textbf{\printcredits}};
+\node[below right, align=left] at ($(current page.south west)+(2.38cm,2.5cm)$) 
 {\fontsize{15pt}{15pt}\arial\printauthor};
 \node[below right, align=left] at ($(current page.south west)+(2.38cm,2.28cm)$) 
 {\fontsize{10pt}{18pt}\arial\printstudyprogramme};
@@ -708,29 +715,30 @@ Your name\fi
 \begin{tikzpicture}[remember picture,overlay]% 
 \begin{scope}
     \clip (current page.north west) rectangle ++(\paperwidth, -\ymargin);
-    \path (current page.north west) node[below right,fill=db,minimum width=\paperwidth,minimum height=\ymargin] (box){};
+    \path (current page.north west) node[below right,fill=background,minimum width=\paperwidth,minimum height=\ymargin] (box){};
     \foreach \x in {2,...,9}
         \foreach \y in {11,...,15}
-          \draw[color=lb, line width=3pt, rounded corners=0.5mm] (current page.south east) +(-\x*\greek - \greekoffsetx, \greekie + \y*\greek - \greekoffsety) rectangle ++(-\greek - \x*\greek - \greekoffsetx +\greekie/2 ,\y*\greek - \greekoffsety);
+          \draw[color=contrast, line width=2.4pt, rounded corners=0.075mm] (current page.south east) +(-\x*\greek - \greekoffsetx, \greekie + \y*\greek - \greekoffsety) rectangle ++(-\greek - \x*\greek - \greekoffsetx +\greekie/2 ,\y*\greek - \greekoffsety);
     \foreach \x in {1,...,8}
         \foreach \y in {11,...,15}
-          \draw[color=lb, line width=3pt, rounded corners=0.5mm] (current page.south east) +(-2*\greekie  - \x*\greek - \greekoffsetx, \greekie/2 + \y*\greek - \greekoffsety) rectangle ++(-2*\greek - \x*\greek - \greekoffsetx, \y*\greek - \greekie/2 - \greekoffsety);
+          \draw[color=contrast, line width=2.4pt, rounded corners=0.075mm] (current page.south east) +(-2*\greekie  - \x*\greek - \greekoffsetx, \greekie/2 + \y*\greek - \greekoffsety) rectangle ++(-2*\greek - \x*\greek - \greekoffsetx, \y*\greek - \greekie/2 - \greekoffsety);
 \end{scope}
 \begin{scope}
     \clip (current page.north east) rectangle ++(-\xmargin, -1.1*\paperheight);
-    \path (current page.north east) node[below left, fill=db, minimum width=\xmargin,minimum height=1.1*\paperheight] (box){};
+    \path (current page.north east) node[below left, fill=background, minimum width=\xmargin,minimum height=1.1*\paperheight] (box){};
     \foreach \x in {0,...,2}
         \foreach \y in {1,...,15}
-          \draw[color=lb, line width=3pt, rounded corners=0.5mm] (current page.south east) +(-\x*\greek - \greekoffsetx, \greekie + \y*\greek - \greekoffsety) rectangle ++(-\greek - \x*\greek - \greekoffsetx +\greekie/2 ,\y*\greek - \greekoffsety);
+          \draw[color=contrast, line width=2.4pt, rounded corners=0.075mm] (current page.south east) +(-\x*\greek - \greekoffsetx, \greekie + \y*\greek - \greekoffsety) rectangle ++(-\greek - \x*\greek - \greekoffsetx +\greekie/2 ,\y*\greek - \greekoffsety);
     \foreach \x in {-1,...,1}
         \foreach \y in {1,...,15}
-          \draw[color=lb, line width=3pt, rounded corners=0.5mm] (current page.south east) +(-2*\greekie  - \x*\greek - \greekoffsetx, \greekie/2 + \y*\greek - \greekoffsety) rectangle ++(-2*\greek - \x*\greek - \greekoffsetx, \y*\greek - \greekie/2 - \greekoffsety);
+          \draw[color=contrast, line width=2.4pt, rounded corners=0.075mm] (current page.south east) +(-2*\greekie  - \x*\greek - \greekoffsetx, \greekie/2 + \y*\greek - \greekoffsety) rectangle ++(-2*\greek - \x*\greek - \greekoffsetx, \y*\greek - \greekie/2 - \greekoffsety);
 \end{scope}
 \covertext
-\node[below right, align=left] at ($(current page.south west)+(1.89cm,21.81cm)$) {
-\resizebox{0.62cm}{!}{\enlogo}};
-\node[below right, align=left] at ($(current page.south west)+(5.24cm,19.6cm)$) {
-\resizebox{0.55cm}{!}{\logotext}};
+\node[below right, align=left] at ($(current page.south west)+(1.965cm,21.35cm)$) {
+\resizebox{0.53cm}{!}{\enlogo}};
+\node[below right, align=left] at ($(current page.south west)+(4.82cm,19.4cm)$) {
+\resizebox{0.53cm}{!}{\logotext}};
+
 \end{tikzpicture}
 }
 
@@ -744,8 +752,8 @@ Your name\fi
 \node[below right, align=left] at ($(current page.south west)+(7.48cm,3.85cm)$) {%
 \resizebox{0.51cm}{!}{\enlogo}
 };
-    \path (current page.north west) node[below right,fill=db, minimum width=\paperwidth, minimum height=\ymargin] (box){};
-    \path (current page.north west) node[below right, fill=db, minimum width=\xmargin,minimum height=1.1*\paperheight] (box){};
+    \path (current page.north west) node[below right,fill=background, minimum width=\paperwidth, minimum height=\ymargin] (box){};
+    \path (current page.north west) node[below right, fill=background, minimum width=\xmargin,minimum height=1.1*\paperheight] (box){};
 \node[below right, align=left] at ($(current page.south west)+(10.68cm,2.92cm)$) {\fontsize{7.5pt}{7.5pt}\arial \textbf{Norges miljø- og biovitenskapelige universitet}}; 
 \node[below right, align=left] at ($(current page.south west)+(10.68cm,2.56cm)$) {\fontsize{7.5pt}{7.5pt}\arial N{\kern 0.04em}o{\kern 0.04em}r{\kern 0.04em}e{\kern 0.04em}g{\kern 0.04em}s miljø- og b{\kern 0.04em}i{\kern 0.04em}o{\kern 0.04em}vi{\kern 0.04em}t{\kern 0.04em}skaplege u{\kern 0.04em}n{\kern 0.04em}i{\kern 0.04em}v{\kern 0.04em}e{\kern 0.04em}r{\kern 0.04em}s{\kern 0.04em}i{\kern 0.04em}t{\kern 0.04em}e{\kern 0.04em}t};
 \node[below right, align=left] at ($(current page.south west)+(10.68cm,2.2cm)$) {\fontsize{7.5pt}{7.5pt}\arial N{\kern 0.04em}o{\kern 0.04em}r{\kern 0.04em}w{\kern 0.04em}e{\kern 0.04em}g{\kern 0.04em}i{\kern 0.04em}a{\kern 0.04em}n Universit{\kern 0.04em}y o{\kern 0.04em}f{\kern 0.04em} Lif{\kern 0.04em}e Scie{\kern 0.04em}n{\kern 0.04em}ces};

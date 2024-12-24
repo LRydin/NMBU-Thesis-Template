@@ -6,7 +6,7 @@
 
 \NeedsTeXFormat{LaTeX2e}
 \ProvidesClass{NMBU}
-  [2024/06/07 v0.1.1 NMBU LaTeX class for thesis writing]
+  [2024/06/17 v0.1.2 NMBU LaTeX class for thesis writing]
 
 %\documentclass[final,...]{NMBU} % use "final" when you are done with your thesis (with XeLaTeX)! 
 
@@ -75,6 +75,8 @@
         \enlogotext
     }%
 }
+
+\definecolor{nmbugreen}{RGB}{0,111,93}
 
 \DeclareOption{green}{%
     \definecolor{db}{RGB}{0,133,113}
@@ -504,9 +506,11 @@ Your name\fi
 \newcommand{\appendices}{
 \appendix%
 \renewcommand\thetable{\thesection.\arabic{table}}%
-\setcounter{table}{0}%
+%\setcounter{table}{0}%
+\counterwithin{table}{section}
 \renewcommand\thefigure{\thesection.\arabic{figure}}%   
-\setcounter{figure}{0}%  
+%\setcounter{figure}{0}%
+\counterwithin{figure}{section}
 }
 
 \newcommand{\startthesis}{

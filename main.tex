@@ -1,14 +1,110 @@
-\documentclass{article}
-\usepackage{graphicx} % Required for inserting images
+\documentclass[a4paper,11pt,masters,en,listoffigures,listoftables]{NMBU}
+% Limitation: at this stage, the template is designed only for a4 size paper.
 
-\title{NMBU Thesis Template}
-\author{Leonardo Rydin}
-\date{June 2024}
+% \usepackage[nohyperlinks]{acronym} % If you need a List of Acronyms, consider using this package
+
+%\documentclass[final,...]{NMBU} % use "final" when you are done with your thesis (with XeLaTeX)! 
+
+% The NMBU style package is designed to help you write the cover and back page automatically. Make sure to include the information below to generate your title. You can set the language you are writing in with "en" for english, "bm" for bokmål, or "nn" for nynorsk.
+
+% A table of contents is automatically included. If you have more than one figure, you need a list of figures by adding "listoffigures" to the documentclass parameters. If you have more than one table, you need a list of tables by adding "listoftables" to the documentclass parameters.
+
+% If you would like to have a bibliography with named authors, organised alphabetically, add "namedauthors" to the parameters of the document class.
+
+\addbibresource{bib.bib} % here you include the bibliography file. 
+
+% If you are using Norwegian dates in your bibliography, add "norwegiandates" to the document class.
+
+% When you finish your thesis, you can activate the "final" parameter in the document class and switch the LaTeX compiler from pdfLaTeX to XelaTeX (on Overleaf, "Menu"->"Compiler"). This is for 2 reasons: 1) to produce your front page with the Arial font; 2) XeLaTeX produces better fonts and (usually) smaller PDFs. Every kilobyte of space we save helps reduce CO2 emissions :)
+
+% Good luck with your thesis! If you get in trouble with LaTeX stuff, write to me: leonardo.rydin@gmail.com
+
+% In your .tex file, you need to include the following information to produce the first page of your thesis
+
+\title{}
+\author{}
+\thesisyear{}
+\credits{30}
+\faculty{Faculty of Science and Technology}
+\studyprogramme{
+%Environmental Physics and Renewable Energy
+%Data Science
+}
+\supervisor{} % Include the name of the supervisor or supervisors
+% \engtitle{} % Only if you write a thesis in a Scandinavian language
+
+% You should also use the "\abstract" and "\sammendrag" to produce those. If you are writing in a Scandinavian language, the sammendrag will appear first.
+%\abstract{Write your abstract here}
+%\sammendrag{Write your sammendrag here}
+%\acknowledgements{} You can add acknowledgements here. In Scandinavian languages, use "\foreword{}" (or if in English you prefer Foreword to Acknowledgements)
+
+\newcommand{\cl}[1]{\textcolor{nmbugreen}{#1}}
 
 \begin{document}
 
-\maketitle
+% If you need a List of Acronyms, place them before the \startthesis command. You will need "\usepackage[nohyperlinks]{acronym}", see line 4.
+
+% \section*{List of Acronyms}
+% \begin{acronym}
+%   \acro{TSO}{Transmission System Operator}
+%   \acro{LSTM}{Long Short-Term Memory}
+% \end{acronym}
+
+\startthesis % This command will separate the Roman-numbered pages above and the Arabic-numbered pages below as well as create the table of contents, list of figures, and list of tables.
 
 \section{Introduction}
+
+\subsection{Motivation}
+\subsection{Research question}
+
+\clearpage % separate each section with a \clearpage
+\section{Theory}
+
+We sometimes have to cite two scientific publications or two reports, or just two citations together in general. For that, you can use \verb|\cite{citation1, citation2}|, i.e., separate the citations with a comma, like~\cite{Beck2000application, Beck2005timeseries}.
+
+When you are closely following a book to explain something, which is often the case in a theory section, you can write at the start of the section you are about to introduce: ``This section follows closely the reference book by Sumiyoshi Abe and Yuko Okamoto, \emph{Nonextensive Statistical Mechanics and Its Applications}~\cite{Abe2001nonextensive}.''
+
+A Master's~\cite{LastName2045norwegian} or a PhD thesis~\cite{Temult2038binding} should include the name of the university wherein it was written, as well as the year. Moreover, it should include a URL to the work, when available.
+
+Articles and proceedings are practically the same in science, but in your bibliography, you should use \verb|@article| for articles and \verb|@inproceedings| for proceedings. The work by Jozefowivz et al. (2015)~\cite{Jozefowicz2015empirical} is an example of a proceedings.
+
+\clearpage
+\section{Methodology}
+
+In the methodology, you might include mentions of various python (or other programming languages) packages. One example is \texttt{numpy}~\cite{NumPy}  (you can use \verb|\texttt{numpy}| to get a monospaced/typewriter font). \texttt{matplotlib}~\cite{Matplotlib} or \texttt{SciPy}~\cite{SciPy} also have articles you can cite directly.
+
+\clearpage
+
+\section*{Todos for a perfect thesis}
+A Master's Thesis or a PhD thesis are documents that are published for posterity. This means that it is important they are well structured, well organised, and devoid of typos and trailing comments.
+
+\subsection*{Figures and Tables}
+When referring to tables and figures, do not write ``in the figure below'' or ``in the table above'', always refer to a figure or table using a \verb|\ref{}|. A few pointers:
+\begin{itemize}
+    \item Captions (\verb|\caption{...}|) for tables go \textit{above} the table; Captions for figures go \textit{below} the figures;
+    \item The label of a figure/table 
+    \item For each figure/table, the \verb|\label{...}| most be attached to the caption: \\ \verb|\caption{...}\label{...}|. \LaTeX~gets confused otherwise.
+    \begin{itemize}
+        \item Keep things organised: for figures/tables, use \verb|\label{fig:}|/\verb|\label{tab:}| and after the colon \verb|:| be explicit, so it is easy for you to remember which label refers to each figure/table.
+    \end{itemize}
+    \item For each caption you should write what is known as the \textit{short caption}:
+    \begin{quote}
+        \verb|\caption[|\cl{\texttt{short caption}}\verb|]{| \texttt{This is my long caption for my figure,}\\
+        \verb|with relevant information}|
+    \end{quote}
+    This will create short captions that will appear in your List of Figures and List of Tables at the start of your thesis.
+\end{itemize}
+
+
+
+% Note that the appendices should come after the bibliography, not before.
+\clearpage
+\references % this command prints out your bibliography
+
+\clearpage
+\appendices % This command is needed to start the appendix section and number the figures and tables accordingly. You should still use "\section"s to make your appendices.
+
+\section{Appendix}
+
 
 \end{document}

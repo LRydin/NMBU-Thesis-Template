@@ -1,7 +1,7 @@
 % NMBU Thesis Class
 % 
 % (c) Leonardo Rydin Gorjão 2024
-% 
+% Special thanks to Hallvard Lavik for the help with version v0.3.0
 %
 %% This class can be redistributed and/or modified freely.
 
@@ -370,11 +370,11 @@ Your name\fi
 \newcommand{\studyprogrammecheck}{%
 \ifx\@studyprogramme\empty
 \studyprogrammefalse
-\@latex@warning@no@line{No \noexpand\studyprogramme given. At the start of your document, you must include your study program with \noexpand\studyprogramme{}.} \else \studyprogrammetrue\fi
+\else \studyprogrammetrue\fi
 }
 \newcommand{\printstudyprogramme}{%
 \studyprogrammecheck \ifstudyprogramme{\@studyprogramme}\else
-{Insert Study programme}\fi
+\fi
 }
 
 \newcommand{\thesisyear}[1]{\def\@thesisyear{#1}}

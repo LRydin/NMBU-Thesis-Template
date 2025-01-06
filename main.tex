@@ -1,4 +1,4 @@
-\documentclass[final,a4paper,masters,nn,listoffigures,listoftables]{NMBU}
+\documentclass[a4paper,masters,en,listoffigures,listoftables]{NMBU}
 % Limitation: at this stage, the template is designed only for a4 size paper.
 
 % If you'd like to use chapters instead of sections, add 'book' to the options, as \documentclass[book,...]{NMBU}. Recall that you now have to use \chapter{} and then \section{}, \subsection{}, ... 
@@ -31,10 +31,6 @@
 \thesisyear{}
 \credits{30}
 \faculty{Faculty of Science and Technology}
-\studyprogramme{
-%Environmental Physics and Renewable Energy
-%Data Science
-}
 \supervisor{} % Include the name of the supervisor or supervisors (this is added to the metadata of the PDF)
 %\engtitle{} % Only if you write a thesis in a Scandinavian language
 
@@ -62,9 +58,9 @@
 \clearpage % separate each section with a \clearpage
 \section{Theory}
 
-We sometimes have to cite two scientific publications or two reports, or just two citations together in general. For that, you can use \verb|\cite{citation1, citation2}|, i.e., separate the citations with a comma, like~\cite{Beck2000application, Beck2005timeseries, Milano2018}.
+We sometimes have to cite two scientific publications or two reports, or just two citations together in general. For that, you can use \verb|\cite{citation1, citation2}|, i.e., separate the citations with a comma, like~\parencite{Beck2000application, Beck2005timeseries, Milano2018}.
 
-When you are closely following a book to explain something, which is often the case in a theory section, you can write at the start of the section you are about to introduce: ``This section follows closely the reference book by Sumiyoshi Abe and Yuko Okamoto, \emph{Nonextensive Statistical Mechanics and Its Applications}~\cite{Abe2001nonextensive}.''
+When you are closely following a book to explain something, which is often the case in a theory section, you can write at the start of the section you are about to introduce: ``This section follows closely the reference book by Sumiyoshi Abe and Yuko Okamoto, \emph{Nonextensive Statistical Mechanics and Its Applications}~\parencite[p.~32]{Abe2001nonextensive}.''
 
 A Master's~\cite{LastName2045norwegian} or a PhD thesis~\cite{Temult2038binding} should include the name of the university wherein it was written, as well as the year. Moreover, it should include a URL to the work, when available.
 

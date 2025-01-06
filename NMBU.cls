@@ -1,13 +1,13 @@
 % NMBU Thesis Class
 % 
 % (c) Leonardo Rydin Gorjão 2024
-% Special thanks to Hallvard Lavik for the help with v0.3.0
+% 
 %
 %% This class can be redistributed and/or modified freely.
 
 \NeedsTeXFormat{LaTeX2e}
 \ProvidesClass{NMBU}
-  [2024/12/24 v0.3.0 NMBU LaTeX class for thesis writing]
+  [2025/01/06 v0.3.1 NMBU LaTeX class for thesis writing]
 
 %\documentclass[final,...]{NMBU} % use "final" when you are done with your thesis (with XeLaTeX)! 
 
@@ -204,14 +204,19 @@
 
 \ifEnglish
 \else
+\RequirePackage{csquotes}
 \RequirePackage[norsk]{babel}%
 \fi
 
 \ifNamedauthors
-  \RequirePackage[style=apa, giveninits=true, hyperref, doi=true, isbn=true, maxbibnames=19, date=year]{biblatex}
+  \ifEnglish
+    \RequirePackage[style=apa, giveninits=true, hyperref, doi=true, isbn=true, maxbibnames=19, date=year, backend=biber]{biblatex}
+  \else
+    \RequirePackage[style=apa, giveninits=true, hyperref, doi=true, isbn=true, maxbibnames=19, date=year, backend=biber, language=norsk]{biblatex}
+  \fi
   \urlstyle{same}
 \else
-  \RequirePackage[style=numeric, giveninits=true, hyperref, doi=true, isbn=true, maxbibnames=19, date=year, sorting=none]{biblatex}
+  \RequirePackage[style=numeric, giveninits=true, hyperref, doi=true, isbn=true, maxbibnames=19, date=year, sorting=none, backend=biber]{biblatex}
   \urlstyle{same}
 \renewbibmacro{in:}{}
 \DeclareSourcemap{
@@ -318,6 +323,17 @@
     }
   }
 \fi
+
+
+\DefineBibliographyStrings{norsk}{%
+nodate = {{}u\adddot\addnbthinspace å\adddot}
+    }%
+\DeclareLabeldate{%
+\field{date}
+\field{eventdate}
+\field{origdate}
+\literal{nodate}
+}
 
 \newcommand{\references}{\sloppy{\setlength\bibitemsep{0pt}\printbibliography[heading=bibintoc]}}
 
@@ -716,7 +732,7 @@ Your name\fi
 \begin{tikzpicture}[remember picture,overlay]% 
 \begin{scope}
     \clip (current page.north west) rectangle ++(\paperwidth, -\ymargin);
-    \path (current page.north west) node[below right,fill=background,minimum width=\paperwidth,minimum height=\ymargin] (box){};
+    \path (current page.north west)  node[below right,fill=background,minimum width=\paperwidth,minimum height=\ymargin] (box){};
     \foreach \x in {2,...,9}
         \foreach \y in {11,...,15}
           \draw[color=contrast, line width=2.4pt, rounded corners=0.075mm] (current page.south east) +(-\x*\greek - \greekoffsetx, \greekie + \y*\greek - \greekoffsety) rectangle ++(-\greek - \x*\greek - \greekoffsetx +\greekie/2 ,\y*\greek - \greekoffsety);
@@ -739,7 +755,6 @@ Your name\fi
 \resizebox{0.53cm}{!}{\enlogo}};
 \node[below right, align=left] at ($(current page.south west)+(4.82cm,19.4cm)$) {
 \resizebox{0.53cm}{!}{\logotext}};
-
 \end{tikzpicture}
 }
 

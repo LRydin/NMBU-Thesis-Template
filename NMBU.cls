@@ -724,7 +724,7 @@ Your name\fi
 %{\fontsize{11pt}{11pt}\arial\textbf{\printcredits}};
 \node[below right, align=left] at ($(current page.south west)+(2.38cm,2.5cm)$) 
 {\fontsize{15pt}{15pt}\arial\printauthor};
-\node[below right, align=left] at ($(current page.south west)+(2.38cm,2.28cm)$) 
+\node[below right, align=left] at ($(current page.south west)+(2.38cm,1.85cm)$) 
 {\fontsize{10pt}{18pt}\arial\printstudyprogramme};
 }
 

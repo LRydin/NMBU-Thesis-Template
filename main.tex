@@ -1,14 +1,15 @@
 \documentclass[a4paper,masters,en,listoffigures,listoftables]{NMBU}
-% Limitation: at this stage, the template is designed only for a4 size paper.
+% Check the NMBU.cls for all the options and more details
 
 % If you'd like to use chapters instead of sections, add 'book' to the options, as \documentclass[book,...]{NMBU}. Recall that you now have to use \chapter{} and then \section{}, \subsection{}, ... 
 
 % \usepackage[nohyperlinks]{acronym} % If you need a List of Acronyms, consider using this package
 
-%\documentclass[final,...]{NMBU} % use "final" when you are done with your thesis (with XeLaTeX)! 
-
 % \usepackage[font=small]{caption} % if you prefer smaller captions
 % \captionsetup{width=0.9\linewidth} 
+
+% Word of advice: When you are done with your thesis, change the compiler in Overleaf to XeLaTeX! This will make your fonts and title page look much nicer than in pdfLaTeX. Just go to "Menu", in the "Settings", find "Compiler" and change to XeLaTeX.
+
 
 % The NMBU style package is designed to help you write the cover and back page automatically. Make sure to include the information below to generate your title. You can set the language you are writing in with "en" for english, "bm" for bokmål, or "nn" for nynorsk.
 
@@ -29,7 +30,7 @@
 \title{}
 \author{}
 \thesisyear{}
-\credits{30}
+\credits{}
 \faculty{Faculty of Science and Technology}
 \supervisor{} % Include the name of the supervisor or supervisors (this is added to the metadata of the PDF)
 %\engtitle{} % Only if you write a thesis in a Scandinavian language
@@ -49,11 +50,10 @@
 %   \acro{LSTM}{Long Short-Term Memory}
 % \end{acronym}
 
-\startthesis % This command will separate the Roman-numbered pages above and the Arabic-numbered pages below as well as create the table of contents, list of figures, and list of tables.
+\startthesis % This command will separate the Roman-numbered pages above and the Arabic-numbered pages below as well as create the table of contents, list of figures, list of tables, and potentially list of acronyms
 
 
 \section{Introduction}
-
 
 \clearpage % separate each section with a \clearpage
 \section{Theory}
@@ -67,10 +67,21 @@ A Master's~\cite{LastName2045norwegian} or a PhD thesis~\cite{Temult2038binding}
 Articles and proceedings are practically the same in science, but in your bibliography, you should use \verb|@article| for articles and \verb|@inproceedings| for proceedings. The work by Jozefowivz et al. (2015)~\cite{Jozefowicz2015empirical} is an example of a proceedings.
 
 \clearpage
+\section{Literature Review}
+
+\clearpage
 \section{Methodology}
 
 In the methodology, you might include mentions of various \texttt{python} (or other programming languages) packages. One example is \texttt{numpy}~\cite{NumPy}  (you can use \verb|\texttt{numpy}| to get a monospaced/typewriter font). \texttt{matplotlib}~\cite{Matplotlib} or \texttt{SciPy}~\cite{SciPy} also have articles you can cite directly.
 
+\clearpage
+\section{Results}
+
+\clearpage
+\section{Discussion}
+
+\clearpage
+\section{Conclusion}
 
 % Note that the appendices should come after the bibliography, not before.
 \clearpage

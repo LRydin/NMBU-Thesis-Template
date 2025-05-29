@@ -1,15 +1,29 @@
 % NMBU Thesis Class
 % 
-% (c) Leonardo Rydin Gorjão 2024
+% (c) Leonardo Rydin Gorjão 2024-2025
 % Special thanks to Hallvard Lavik for the help with version v0.3.0
 %
 %% This class can be redistributed and/or modified freely.
 
 \NeedsTeXFormat{LaTeX2e}
 \ProvidesClass{NMBU}
-  [2025/01/06 v0.3.1 NMBU LaTeX class for thesis writing]
+  [2025/05/29 v0.3.2 NMBU LaTeX class for thesis writing]
 
-%\documentclass[final,...]{NMBU} % use "final" when you are done with your thesis (with XeLaTeX)! 
+% List of all options available:
+% - a4paper: A4 sized paper (default, do not change, breaks)
+% - masters: Master's thesis (default, PhD is under preparation)
+% - en: English writing
+% - bm: Bokmål writing
+% - nn: Nynorsk writing
+% - book: Use a book style, chapters and section (default is only sections)
+% - APA: Use APA 7th citation style (default is numeric) 
+% - Listoffigures: Add a list of figures to the thesis
+% - Listoftables: Add a list of tables to the thesis
+% - Acronyms: Add a list of acronyms to the thesis (read below)
+% - Forewordfirst: Place the foreword ('forord') first
+% - NorwegianDates: Use the norwegian style for dates
+
+% Word of advice: When you are done with your thesis, change the compiler in Overleaf to XeLaTeX! This will make your fonts and title page look much nicer than in pdfLaTeX. Just go to "Menu", in the "Settings", find "Compiler" and change to XeLaTeX.
 
 % This documentclass also comes with a "main.tex" file to help you understand the use of the different commands and how to best write an academic thesis, as well as an exemplary bibliography file with a few explanations therein.
 
@@ -17,11 +31,11 @@
 
 % A table of contents is automatically included. If you have more than one figure, you need a list of figures by adding "listoffigures" to the documentclass parameters. If you have more than one table, you need a list of tables by adding "listoftables" to the documentclass parameters.
 
-% There are two primary styles of references/bibliography used: numeric and named-author reference styles. Numeric style uses numbers in your citation, e.g., [1,2]. Named-author referencing will show the authors' names in the text and will organise the authors differently in the reference list at the end of your document. Add "namedauthors" in the document class if you want to use this style. Confer with your supervisor(s) which style is preferable. To print the references, use "\references" at the end of your document, but before your appendices!
+% There are two primary styles of references/bibliography used: numeric and named-author reference styles (APA 7th). Numeric style uses numbers in your citation, e.g., [1,2]. Named-author, following the American Psychological Association: 7th Edition referencing will show the authors' names in the text and will organise the authors differently in the reference list at the end of your document. Add "APA" in the document class if you want to use this style. Confer with your supervisor(s) on which style is preferable. To print the references, use "\references" at the end of your document, but before your appendices!
 
 % Your appendix or appendices should come after your references. To start your appendix section, use "\appendices"
 
-% When you finish your thesis, you can activate the "final" parameter in the document class and switch the LaTeX compiler from pdfLaTeX to XelaTeX (on Overleaf, "Menu"->"Compiler"). This is for 2 reasons: 1) to produce your front page with the Arial font; 2) XeLaTeX produces better fonts and (usually) smaller PDFs. Every kilobyte of space we save helps reduce CO2 emissions :)
+% When you finish your thesis, switch the LaTeX compiler from pdfLaTeX to XelaTeX (on Overleaf, "Menu"->"Compiler"). This is for 2 reasons: 1) to produce your front page with the Arial font; 2) XeLaTeX produces better fonts and (usually) smaller PDFs. Every kilobyte of space we save helps reduce CO2 emissions :)
 
 % Good luck with your thesis! If you get in trouble with LaTeX stuff, write to me: leonardo.rydin@gmail.com
 
@@ -39,9 +53,11 @@
 
 \ProvidesClass{superclass}
 
-\RequirePackage{xkeyval} % better option processing - there are many other possibilities as you probably know so just adapt as needed
+% better option processing
+\RequirePackage{xkeyval} 
 
-\def\myclasstype{article}% make sure a default is defined
+% make sure a default is defined
+\def\myclasstype{article}
 \newif\ifArticle
 \Articletrue
 \newif\ifBook
@@ -74,7 +90,7 @@
 
 % Page margins, frenchspacing, and linespread
 \RequirePackage{geometry}
-\geometry{a4paper,left=3.5cm, right=3.5cm, top=3.5cm, bottom=3cm}
+\geometry{a4paper, left=3.5cm, right=3.5cm, top=3.5cm, bottom=3cm}
 \frenchspacing
 \linespread{1.15}
 
@@ -83,8 +99,10 @@
 \usetikzlibrary{calc}
 \tikzset{font={\fontsize{10pt}{12}\selectfont}}
 
-%%% Options for the thesis
+% packages to check compiler and inject metadata
+\RequirePackage{ifxetex} 
 
+%%% Options for the thesis
 \DeclareOption{bm}{%
     \newcommand{\MT}{Masteroppgave}%
     \newcommand{\ECTS}{stp}%
@@ -179,14 +197,11 @@
     \tikzset{ymargin=7.1cm * 70/99}
 }
 
-\newif\ifFinal
-\DeclareOption{final}{\Finaltrue}
-
 \newif\ifNorwegianDates
 \DeclareOption{norwegiandates}{\NorwegianDatestrue}
 
-\newif\ifNamedauthors
-\DeclareOption{namedauthors}{\Namedauthorstrue}
+\newif\ifAPA
+\DeclareOption{APA}{\APAtrue}
 
 \newif\ifListoffigures
 \DeclareOption{listoffigures}{\Listoffigurestrue}
@@ -208,7 +223,7 @@
 \RequirePackage[norsk]{babel}%
 \fi
 
-\ifNamedauthors
+\ifAPA
   \ifEnglish
     \RequirePackage[style=apa, giveninits=true, hyperref, doi=true, isbn=true, maxbibnames=19, date=year, backend=biber]{biblatex}
   \else
@@ -305,7 +320,7 @@
 
 \AtEveryBibitem{\clearlist{language}}
 
-\ifFinal
+\ifxetex
     \RequirePackage{fontspec}
     \newfontfamily{\arial}{Arial}
 \else
@@ -453,13 +468,13 @@ Your name\fi
 
 
 \newcommand{\setmetadata}{%
-\ifFinal
+\ifxetex
     \special { pdf:docinfo <<
       /Title (\@title)
       /Author (\@author)
       /Producer (\@author, Supervision: \@supervisor)
       /Creator (\@author)
-      /Subject (Master's Thesis \@thesisyear, \@credits ECTS)
+      /Subject (Master's Thesis \@thesisyear (\@credits ECTS))
       /Keywords (Norwegian University of Life Science, \@faculty, \@studyprogramme)
      >> }
 \else

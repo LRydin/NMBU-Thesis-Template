@@ -7,7 +7,7 @@
 
 \NeedsTeXFormat{LaTeX2e}
 \ProvidesClass{NMBU}
-  [2025/05/29 v0.3.2 NMBU LaTeX class for thesis writing]
+  [2025/06/16 v0.3.3 NMBU LaTeX class for thesis writing]
 
 % List of all options available:
 % - a4paper: A4 sized paper (default, do not change, breaks)
@@ -319,6 +319,18 @@
 \fi
 
 \AtEveryBibitem{\clearlist{language}}
+
+\renewbibmacro*{doi+eprint+url}{%
+    \printfield{doi}%
+    \newunit\newblock%
+    \iftoggle{bbx:eprint}{%
+        \usebibmacro{eprint}%
+    }{}%
+    \newunit\newblock%
+    \iffieldundef{doi}{%
+        \usebibmacro{url+urldate}}%
+        {}%
+    }
 
 \ifxetex
     \RequirePackage{fontspec}
@@ -746,8 +758,8 @@ Your name\fi
 \newcommand{\frontpage}{%
 \begin{tikzpicture}[remember picture,overlay]% 
 \begin{scope}
-    \clip (current page.north west) rectangle ++(\paperwidth, -\ymargin);
-    \path (current page.north west)  node[below right,fill=background,minimum width=\paperwidth,minimum height=\ymargin] (box){};
+    \path ($(current page.north east)$) node[below left,fill=background, minimum width=1.05*\paperwidth, minimum height=\ymargin, outer sep=0] (box){};
+    \clip (current page.north west) rectangle  ++(\paperwidth, -\ymargin);
     \foreach \x in {2,...,9}
         \foreach \y in {11,...,15}
           \draw[color=contrast, line width=2.4pt, rounded corners=0.075mm] (current page.south east) +(-\x*\greek - \greekoffsetx, \greekie + \y*\greek - \greekoffsety) rectangle ++(-\greek - \x*\greek - \greekoffsetx +\greekie/2 ,\y*\greek - \greekoffsety);
@@ -755,9 +767,11 @@ Your name\fi
         \foreach \y in {11,...,15}
           \draw[color=contrast, line width=2.4pt, rounded corners=0.075mm] (current page.south east) +(-2*\greekie  - \x*\greek - \greekoffsetx, \greekie/2 + \y*\greek - \greekoffsety) rectangle ++(-2*\greek - \x*\greek - \greekoffsetx, \y*\greek - \greekie/2 - \greekoffsety);
 \end{scope}
+\path ($(current page.north east) + (-0.2,-0.0)$) node[below right, fill=background, minimum width=1.02*\xmargin+0.1,minimum height=1.1*\paperheight] (box){};
 \begin{scope}
-    \clip (current page.north east) rectangle ++(-\xmargin, -1.1*\paperheight);
+    \clip ($(current page.north east) + (0.01,0)$) rectangle ++(-\xmargin, -1.1*\paperheight);
     \path (current page.north east) node[below left, fill=background, minimum width=\xmargin,minimum height=1.1*\paperheight] (box){};
+    %\path ($(current page.north east) + (-0.1,-0.1)$) node[below left, fill=yellow, minimum width=1.02*\xmargin+0.1,minimum height=1.1*\paperheight] (box){};
     \foreach \x in {0,...,2}
         \foreach \y in {1,...,15}
           \draw[color=contrast, line width=2.4pt, rounded corners=0.075mm] (current page.south east) +(-\x*\greek - \greekoffsetx, \greekie + \y*\greek - \greekoffsety) rectangle ++(-\greek - \x*\greek - \greekoffsetx +\greekie/2 ,\y*\greek - \greekoffsety);
@@ -783,8 +797,9 @@ Your name\fi
 \node[below right, align=left] at ($(current page.south west)+(7.48cm,3.85cm)$) {%
 \resizebox{0.51cm}{!}{\enlogo}
 };
-    \path (current page.north west) node[below right,fill=background, minimum width=\paperwidth, minimum height=\ymargin] (box){};
-    \path (current page.north west) node[below right, fill=background, minimum width=\xmargin,minimum height=1.1*\paperheight] (box){};
+    % \path (current page.north west) node[below right,fill=background, minimum width=\paperwidth, minimum height=\ymargin] (box){};
+    \path ($(current page.north east)$) node[below left,fill=background, minimum width=1.05*\paperwidth, minimum height=\ymargin, outer sep=0] (box){};
+    \path ($(current page.south west) + (-0.1,-0.1)$) node[above right, fill=background, minimum width=1.02*\xmargin+0.1,minimum height=1.1*\paperheight] (box){};
 \node[below right, align=left] at ($(current page.south west)+(10.68cm,2.92cm)$) {\fontsize{7.5pt}{7.5pt}\arial \textbf{Norges miljø- og biovitenskapelige universitet}}; 
 \node[below right, align=left] at ($(current page.south west)+(10.68cm,2.56cm)$) {\fontsize{7.5pt}{7.5pt}\arial N{\kern 0.04em}o{\kern 0.04em}r{\kern 0.04em}e{\kern 0.04em}g{\kern 0.04em}s miljø- og b{\kern 0.04em}i{\kern 0.04em}o{\kern 0.04em}vi{\kern 0.04em}t{\kern 0.04em}skaplege u{\kern 0.04em}n{\kern 0.04em}i{\kern 0.04em}v{\kern 0.04em}e{\kern 0.04em}r{\kern 0.04em}s{\kern 0.04em}i{\kern 0.04em}t{\kern 0.04em}e{\kern 0.04em}t};
 \node[below right, align=left] at ($(current page.south west)+(10.68cm,2.2cm)$) {\fontsize{7.5pt}{7.5pt}\arial N{\kern 0.04em}o{\kern 0.04em}r{\kern 0.04em}w{\kern 0.04em}e{\kern 0.04em}g{\kern 0.04em}i{\kern 0.04em}a{\kern 0.04em}n Universit{\kern 0.04em}y o{\kern 0.04em}f{\kern 0.04em} Lif{\kern 0.04em}e Scie{\kern 0.04em}n{\kern 0.04em}ces};

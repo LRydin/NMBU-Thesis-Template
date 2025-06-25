@@ -7,7 +7,7 @@
 
 \NeedsTeXFormat{LaTeX2e}
 \ProvidesClass{NMBU}
-  [2025/06/16 v0.3.3 NMBU LaTeX class for thesis writing]
+  [2025/06/25 v0.3.4 NMBU LaTeX class for thesis writing]
 
 % List of all options available:
 % - a4paper: A4 sized paper (default, do not change, breaks)
@@ -233,6 +233,8 @@
 \else
   \RequirePackage[style=numeric, giveninits=true, hyperref, doi=true, isbn=true, maxbibnames=19, date=year, sorting=none, backend=biber]{biblatex}
   \urlstyle{same}
+  \renewcommand*{\namelabeldelim}{\nobreakspace}
+  \renewcommand*{\multicitedelim}{\addcomma}
 \renewbibmacro{in:}{}
 \DeclareSourcemap{
   \maps[datatype=bibtex]{

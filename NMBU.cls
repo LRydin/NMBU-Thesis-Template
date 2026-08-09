@@ -781,9 +781,10 @@
 \node[below right, align=left] at ($(current page.south west) + 
   (\NMBU@coverx{2.38cm},\NMBU@covery{2.5cm})$)
 {\fontsize{15pt}{15pt}\NMBU@coverfont\printauthor};
-\node[below right, align=left] at ($(current page.south west) + 
-  (\NMBU@coverx{2.38cm},\NMBU@covery{1.85cm})$)
-{\fontsize{10pt}{18pt}\NMBU@coverfont\printstudyprogramme};
+% The programme name is no longer printed on the cover since 2025.
+% \node[below right, align=left] at ($(current page.south west) + 
+%   (\NMBU@coverx{2.38cm},\NMBU@covery{1.85cm})$)
+% {\fontsize{10pt}{18pt}\NMBU@coverfont\printstudyprogramme};
 }
 
 \newcommand{\frontpage}{%
